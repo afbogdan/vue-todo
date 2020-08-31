@@ -16,10 +16,11 @@ export default {
   header {
     display: flex;
     justify-content: center;
+    margin-top: 5vh;
 
     img {
       height: 30px;
-      margin: 0 12px;
+      margin: 0 0 12px;
     }
   }
 </style>

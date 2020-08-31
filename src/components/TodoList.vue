@@ -20,12 +20,10 @@ export default {
 
 <style lang="scss" scoped>
     ul {
-        margin: 100px auto;
-        width: 50%;
         padding: 16px 32px;
         list-style-type: none;
         background: white;
-        border-radius: 16px;
+        margin: 32px 0 16px;
         box-shadow: 0px 6px 10px 0px #c6c6c6;
         
         li {
