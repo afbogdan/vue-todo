@@ -28,12 +28,12 @@ export default {
     return {
       tasks: tasks,
       limit: 5,
-      canAdd: true
     } 
   },
-  watch: {
-    tasks: function (tasks) {
-      this.canAdd = tasks.length < 5
+  computed: {
+    // a computed getter
+    canAdd: function () {
+      return this.tasks.length < this.limit
     }
   },
   methods: {
