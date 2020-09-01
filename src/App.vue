@@ -2,12 +2,11 @@
   <section id="app">
     <TodoHeader />
     <TodoForm label="Task name" submitText="Add task" :submitHandler="addTask" :disabled="!canAdd"/>
-    <TodoList :data="tasks"/>
+    <TodoList :data="tasks" :deleteHandler="deleteTask"/>
     <div class="statistics">
       <p id="complete"><strong>Completed:</strong> {{ getCompletedTasks() }} / {{ tasks.length }}</p>
       <p id="limit" v-bind:class="{alert: !canAdd}"><strong>Limit:</strong> {{tasks.length}} / {{ limit }}</p>
     </div>
-    
   </section>
 </template>
 
@@ -44,16 +43,21 @@ export default {
     },
     addTask: function(task) {
       this.tasks.push({
-        id: this.tasks.length + 1,
+        id: Math.max.apply(Math, this.tasks.map(function(t) { return t.id; })) + 1,
         name: task,
         isDone: false
       })
+    },
+    deleteTask: function(id) {
+      this.tasks = this.tasks.filter(task => task.id !== id)
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~material-design-icons/iconfont/material-icons.css';
+
 * {
   margin: 0;
   padding: 0;
