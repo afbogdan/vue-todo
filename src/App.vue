@@ -31,7 +31,6 @@ export default {
     } 
   },
   computed: {
-    // a computed getter
     canAdd: function () {
       return this.tasks.length < this.limit
     }

@@ -5,7 +5,7 @@
       <input type="submit" :value="submitText">
   </form>
 
-  <p v-else class="box alert"><strong>Cannot more than the limit :(</strong></p>
+  <p v-else class="box alert"><strong>Cannot add more than the limit :(</strong></p>
 </template>
 
 <script>
