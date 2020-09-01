@@ -23,7 +23,7 @@ export default {
         padding: 16px 32px;
         list-style-type: none;
         background: white;
-        margin: 32px 0 16px;
+        margin: 16px 0;
         box-shadow: 0px 6px 10px 0px #c6c6c6;
         
         li {

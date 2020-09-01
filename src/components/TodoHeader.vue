@@ -16,7 +16,7 @@ export default {
   header {
     display: flex;
     justify-content: center;
-    margin-top: 5vh;
+    margin: 5vh 0;
 
     img {
       height: 30px;

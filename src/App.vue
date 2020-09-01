@@ -1,10 +1,11 @@
 <template>
   <section id="app">
     <TodoHeader />
+    <TodoForm label="Task name" submitText="Add task" :submitHandler="addTask" :disabled="!canAdd"/>
     <TodoList :data="tasks"/>
     <div class="statistics">
       <p id="complete"><strong>Completed:</strong> {{ getCompletedTasks() }} / {{ tasks.length }}</p>
-      <p id="limit"><strong>Limit:</strong> {{tasks.length}} / {{ limit }}</p>
+      <p id="limit" v-bind:class="{alert: !canAdd}"><strong>Limit:</strong> {{tasks.length}} / {{ limit }}</p>
     </div>
     
   </section>
@@ -13,35 +14,68 @@
 <script>
 import tasks from './assets/scripts/data.js';
 import TodoHeader from './components/TodoHeader';
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
 export default {
   name: 'App',
   components: {
     TodoHeader,
-    TodoList
+    TodoList,
+    TodoForm
   },
   data() {
     return {
       tasks: tasks,
-      limit: 5
+      limit: 5,
+      canAdd: true
     } 
   },
+  watch: {
+    tasks: function (tasks) {
+      this.canAdd = tasks.length < 5
+    }
+  },
   methods: {
-    getCompletedTasks() {
+    getCompletedTasks: function() {
       let completed = 0;
       this.tasks.forEach(task => { if (task.isDone) completed++; })
 
       return completed;
+    },
+    addTask: function(task) {
+      this.tasks.push({
+        id: this.tasks.length + 1,
+        name: task,
+        isDone: false
+      })
     }
   }
 }
 </script>
 
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: left;
+}
+
 body {
   background: #e7e7e7;
 }
+
+.box {
+  background: white;
+  box-shadow: 0px 6px 10px 0px #c6c6c6;
+  padding: 16px 32px;
+}
+
+.alert {
+  color: rgb(168, 3, 3);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -62,18 +96,18 @@ body {
   #limit {
     // margin: 10px 0 0px 0;
     text-align: right;
+
+    &.alert {
+      @extend .alert;
+    }
   }
 
   .statistics {
     display: flex;
     justify-content: space-between;
+    background: white;
+    box-shadow: 0px 6px 10px 0px #c6c6c6;
+    padding: 16px 32px;
   }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-align: left;
 }
 </style>
