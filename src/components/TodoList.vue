@@ -1,23 +1,24 @@
 <template>
   <ul v-if="data.length">
-        <li v-for="item in data" v-bind:key="item.id">
-            <label :for="'task' + item.id">
-                <input type="checkbox" v-model="item.isDone" :id="'task' + item.id">
-                {{ item.name }}
-            </label>
-            <div class="actions">
-                <!-- <i class="material-icons">edit</i> -->
-                <i class="material-icons" @click="deleteHandler(item.id)">delete</i>
-            </div>
-        </li>
+    <TodoListItem  
+        v-for="item in data" 
+        :key="item.id" 
+        :item="item" 
+        :deleteHandler="deleteHandler"
+    />
   </ul>
 
   <p v-else class="empty-list">There are no todos :(</p>
 </template>
 
 <script>
+import TodoListItem from './TodoListItem';
+
 export default {
     name: 'TodoList',
+    components: {
+        TodoListItem
+    },
     props: {
         data: {
             type: Array,
@@ -56,45 +57,6 @@ export default {
 
     ul {
         list-style-type: none;
-        
-        li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 16px 0;
-            border-bottom: 1px solid #dfdfdf;
-
-            &:last-child {
-                border-bottom: 0;
-            }
-
-            label {
-                display: flex;
-                cursor: pointer;
-
-                input {
-                    margin-right: 8px;
-                }
-            }
-
-            .actions {
-                color: #626262;
-
-                i {
-                    margin: 0 2px;
-                    cursor: pointer;
-                    padding: 4px;
-                    border-radius: 4px;
-                    transition: 0.15s;
-
-                    &:hover {
-                        color: black;
-                        background: #cacaca;
-                    }
-                }
-            }
-        }
     }
 
     *::selection {

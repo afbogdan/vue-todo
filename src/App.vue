@@ -43,7 +43,7 @@ export default {
     },
     addTask: function(task) {
       this.tasks.push({
-        id: Math.max.apply(Math, this.tasks.map(function(t) { return t.id; })) + 1,
+        id: this.tasks.length !== 0 ? Math.max.apply(Math, this.tasks.map(function(t) { return t.id; })) + 1 : 1,
         name: task,
         isDone: false
       })
