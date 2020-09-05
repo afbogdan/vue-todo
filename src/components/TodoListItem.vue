@@ -1,12 +1,18 @@
 <template>
-    <li>
+    <li v-if="!isEditing">
         <label :for="'task' + item.id">
             <input type="checkbox" v-model="item.isDone" :id="'task' + item.id">
             {{ item.name }}
         </label>
         <div class="actions">
-            <!-- <i class="material-icons">edit</i> -->
+            <i class="material-icons" @click="toggleEdit()">edit</i>
             <i class="material-icons" @click="deleteHandler(item.id)">delete</i>
+        </div>
+    </li>
+    <li v-else>
+        <input type="text" v-model="item.name">
+        <div class="actions">
+            <i class="material-icons" @click="toggleEdit()">save</i>
         </div>
     </li>
 </template>
@@ -14,6 +20,11 @@
 <script>
 export default {
     name: 'TodoListItem',
+    data: function() {
+        return {
+            isEditing: false
+        }
+    },
     props: {
         item: {
             type: Object,
@@ -22,6 +33,11 @@ export default {
         deleteHandler: {
             type: Function,
             required: true
+        }
+    },
+    methods: {
+        toggleEdit: function() {
+            this.isEditing = !this.isEditing;
         }
     }
 }
